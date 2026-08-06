@@ -1,16 +1,24 @@
 import { NextResponse } from "next/server";
+import axios from "axios";
+import { HttpsProxyAgent } from "https-proxy-agent";
 
 export const runtime = "nodejs";
 
 export async function GET() {
-  const apiKey = process.env.PACKDRAW_API_KEY;
-  console.log("PACKDRAW KEY EXISTS:", !!apiKey);
-console.log("PACKDRAW KEY START:", apiKey?.slice(0, 8));
-console.log("PACKDRAW KEY END:", apiKey?.slice(-4));
+  const apiKey = process.env.LUXDROP_API_KEY;
+  const proxyUrl = process.env.PROXY_URL;
+  const affiliateCode = "Zuleta";
 
   if (!apiKey) {
     return NextResponse.json(
-      { error: "Missing PACKDRAW_API_KEY" },
+      { error: "Missing LUXDROP_API_KEY" },
+      { status: 500 }
+    );
+  }
+
+  if (!proxyUrl) {
+    return NextResponse.json(
+      { error: "Missing PROXY_URL" },
       { status: 500 }
     );
   }
@@ -18,29 +26,34 @@ console.log("PACKDRAW KEY END:", apiKey?.slice(-4));
   try {
     const now = new Date();
 
-const startDate = `${now.getMonth() + 1}-1-${now.getFullYear()}`;
+    // Automatically starts from the 1st day of the current month
+    const startDate = `${now.getFullYear()}-${String(
+      now.getMonth() + 1
+    ).padStart(2, "0")}-01`;
 
-    const url = `https://packdraw.com/api/v1/affiliates/leaderboard?after=${startDate}&apiKey=${apiKey}`;
+    const url =
+      `https://api.luxdrop.com/external/affiliates` +
+      `?codes=${affiliateCode}` +
+      `&startDate=${startDate}`;
 
-    const response = await fetch(url, {
-      cache: "no-store",
+    const agent = new HttpsProxyAgent(proxyUrl);
+
+    const response = await axios.get(url, {
+      headers: {
+        "x-api-key": apiKey,
+        Accept: "application/json",
+      },
+      httpsAgent: agent,
+      proxy: false,
     });
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      return NextResponse.json(
-        { error: "PackDraw API error", details: data },
-        { status: response.status }
-      );
-    }
-
-    return NextResponse.json(data);
-  } catch (error) {
+    return NextResponse.json(response.data);
+  } catch (error: any) {
     return NextResponse.json(
       {
-        error: "Failed to fetch PackDraw API",
-        details: String(error),
+        error: "Failed to fetch LuxDrop API",
+        details: error.message,
+        response: error.response?.data,
       },
       { status: 500 }
     );

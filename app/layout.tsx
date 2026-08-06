@@ -13,8 +13,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ZuletaLB | PackDraw Wager Race",
-  description: "PackDraw Wager Race Hosted by ZuletaLB",
+  title: "ZuletaLB | LuxDrop
+
+   Wager Race",
+  description: "LuxDrop Wager Race Hosted by ZuletaLB",
 };
 
 export default function RootLayout({
