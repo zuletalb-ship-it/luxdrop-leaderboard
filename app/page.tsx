@@ -90,7 +90,7 @@ useEffect(() => {
           </div>
 
           <h1 className="text-6xl md:text-8xl font-black tracking-tight leading-none">
-            PACKDRAW
+            LUXDROP
             <br />
             <span className="text-purple-500 drop-shadow-[0_0_25px_rgba(168,85,247,0.7)]">
               WAGER RACE
