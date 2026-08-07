@@ -70,7 +70,7 @@ useEffect(() => {
       <section className="relative max-w-7xl mx-auto px-6 py-8">
         <nav className="flex items-center justify-between mb-16">
           <div className="text-3xl font-black tracking-tight">
-            Zuleta<span className="text-purple-500">LB</span>
+            Zuleta<span className="text-sky-500">LB</span>
           </div>
 
           <div className="flex items-center gap-2 rounded-xl border border-zinc-800 bg-black/50 px-5 py-3 text-sm font-bold">
@@ -84,7 +84,7 @@ useEffect(() => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-10"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-purple-500/50 bg-purple-500/10 px-5 py-2 text-purple-300 font-bold tracking-widest mb-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/50 bg-sky-500/10 px-5 py-2 text-sky-300 font-bold tracking-widest mb-6">
             <Zap size={16} />
             MONTHLY COMPETITION
           </div>
@@ -92,7 +92,7 @@ useEffect(() => {
           <h1 className="text-6xl md:text-8xl font-black tracking-tight leading-none">
             LUXDROP
             <br />
-            <span className="text-purple-500 drop-shadow-[0_0_25px_rgba(168,85,247,0.7)]">
+            <span className="text-sky-400 drop-shadow-[0_0_25px_rgba(56,189,248,0.65)]">
               WAGER RACE
             </span>
           </h1>
@@ -117,7 +117,7 @@ useEffect(() => {
               whileHover={{ scale: 1.03 }}
               className={`rounded-3xl border bg-black/60 backdrop-blur p-8 text-center ${
                 player.rank === 1
-                  ? "md:-translate-y-6 border-yellow-400 shadow-[0_0_45px_rgba(250,204,21,0.25)]"
+                  ? "md:-translate-y-6 border-yellow-400 shadow-[0_0_45px_rgba(56,189,248,0.25)]"
                   : player.rank === 2
                   ? "border-zinc-400/60"
                   : "border-orange-500/60"
@@ -145,14 +145,14 @@ useEffect(() => {
                 ${(player.wagered || 0).toLocaleString()}
               </p>
 
-              <div className="mt-5 rounded-xl border border-purple-500/40 py-3 font-bold tracking-widest">
+              <div className="mt-5 rounded-xl border border-sky-500/40 py-3 font-bold tracking-widest">
                 PRIZE: {prizes[player.rank - 1]}
               </div>
             </motion.div>
           ))}
         </div>
 
-        <div className="rounded-3xl border border-purple-500/40 bg-black/60 overflow-hidden mb-8 shadow-[0_0_40px_rgba(147,51,234,0.12)]">
+        <div className="rounded-3xl border border-sky-500/40 bg-black/60 overflow-hidden mb-8 shadow-[0_0_40px_rgba(147,51,234,0.12)]">
           <div className="p-7 border-b border-zinc-800">
             <h2 className="text-3xl font-black tracking-wide">FULL LEADERBOARD</h2>
             <p className="text-zinc-500 mt-1">
@@ -161,7 +161,7 @@ useEffect(() => {
           </div>
 
           <table className="w-full">
-            <thead className="bg-purple-950/30 text-zinc-300 text-sm tracking-widest">
+            <thead className="bg-slate-900/30 text-zinc-300 text-sm tracking-widest">
               <tr className="text-left">
                 <th className="p-5">RANK</th>
                 <th className="p-5">PLAYER</th>
@@ -174,7 +174,7 @@ useEffect(() => {
               {rest.map((player) => (
                 <tr
                   key={player.rank}
-                  className="border-t border-zinc-900 hover:bg-purple-500/10 transition"
+                  className="border-t border-zinc-900 hover:bg-sky-500/10 transition"
                 >
                   <td className="p-5 font-bold">#{player.rank}</td>
                   <td className="p-5 font-semibold">{player.name}</td>
@@ -183,13 +183,13 @@ useEffect(() => {
                   </td>
                   <td className="p-5">
   {player.rank === 4 && (
-    <span className="rounded-full border border-purple-500/40 px-3 py-1 text-sm font-bold text-purple-300">
+    <span className="rounded-full border border-sky-500/40 px-3 py-1 text-sm font-bold text-sky-300">
       $400
     </span>
   )}
 
   {player.rank === 5 && (
-    <span className="rounded-full border border-purple-500/40 px-3 py-1 text-sm font-bold text-purple-300">
+    <span className="rounded-full border border-sky-500/40 px-3 py-1 text-sm font-bold text-sky-300">
       $300
     </span>
   )}
@@ -200,7 +200,7 @@ useEffect(() => {
           </table>
         </div>
 
-        <footer className="rounded-3xl border border-purple-500/30 bg-black/60 p-6 text-center text-zinc-300">
+        <footer className="rounded-3xl border border-sky-500/30 bg-black/60 p-6 text-center text-zinc-300">
           18+ only. Please gamble responsibly.
         </footer>
       </section>
@@ -218,8 +218,8 @@ function StatCard({
   value: string;
 }) {
   return (
-    <div className="rounded-3xl border border-purple-500/30 bg-black/60 p-7 backdrop-blur shadow-[0_0_30px_rgba(147,51,234,0.12)]">
-      <div className="text-purple-400 mb-4">{icon}</div>
+    <div className="rounded-3xl border border-sky-500/30 bg-black/60 p-7 backdrop-blur shadow-[0_0_30px_rgba(147,51,234,0.12)]">
+      <div className="text-sky-400 mb-4">{icon}</div>
       <p className="text-zinc-400 uppercase tracking-widest font-bold">{label}</p>
       <h2 className="text-4xl font-black mt-2">{value}</h2>
     </div>
