@@ -26,10 +26,26 @@ export async function GET() {
   try {
     const now = new Date();
 
-    // Automatically starts from the 1st day of the current month
-    const startDate = `${now.getFullYear()}-${String(
-      now.getMonth() + 1
-    ).padStart(2, "0")}-01`;
+let cycleStart = new Date(
+  now.getFullYear(),
+  now.getMonth(),
+  11
+);
+
+// Before the 11th, the current race started on the 11th of last month.
+if (now.getDate() < 11) {
+  cycleStart = new Date(
+    now.getFullYear(),
+    now.getMonth() - 1,
+    11
+  );
+}
+
+const startDate = `${cycleStart.getFullYear()}-${String(
+  cycleStart.getMonth() + 1
+).padStart(2, "0")}-${String(
+  cycleStart.getDate()
+).padStart(2, "0")}`;
 
     const url =
       `https://api.luxdrop.com/external/affiliates` +

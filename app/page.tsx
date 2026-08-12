@@ -11,7 +11,27 @@ useEffect(() => {
   function updateCountdown() {
     const now = new Date();
 
-    let nextEnd = new Date(now.getFullYear(), now.getMonth() + 1, 1, 0, 0, 0);
+    let nextEnd = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      11,
+      0,
+      0,
+      0
+    );
+
+    // If we've already reached/passed the 11th this month,
+    // target the 11th of next month.
+    if (now >= nextEnd) {
+      nextEnd = new Date(
+        now.getFullYear(),
+        now.getMonth() + 1,
+        11,
+        0,
+        0,
+        0
+      );
+    }
 
     const difference = nextEnd.getTime() - now.getTime();
 
@@ -58,7 +78,7 @@ useEffect(() => {
     return () => clearInterval(interval);
   }, []);
  
-  const prizes = ["$1600", "$1000", "$700", "$400", "$300"];
+  const prizes = ["$1200", "$750", "$500", "$325", "$225"];
   const podium = [players[1], players[0], players[2]].filter(Boolean);
   const rest = players.slice(3);
 
@@ -105,9 +125,9 @@ useEffect(() => {
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-5 mb-10">
-          <StatCard icon={<Trophy size={38} />} label="Prize Pool" value="$4000" />
+          <StatCard icon={<Trophy size={38} />} label="Prize Pool" value="$3000" />
           <StatCard icon={<Timer size={38} />} label="Ends In" value={timeLeft} />
-          <StatCard icon={<Crown size={38} />} label="Top Prize" value="$1600" />
+          <StatCard icon={<Crown size={38} />} label="Top Prize" value="$1200" />
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 mb-10 items-end">
