@@ -24,28 +24,36 @@ export async function GET() {
   }
 
   try {
-    const now = new Date();
+   
+const now = new Date();
 
-let cycleStart = new Date(
-  now.getFullYear(),
-  now.getMonth(),
-  11
+const pacificParts = new Intl.DateTimeFormat("en-US", {
+  timeZone: "America/Los_Angeles",
+  year: "numeric",
+  month: "numeric",
+  day: "numeric",
+}).formatToParts(now);
+
+const parts = Object.fromEntries(
+  pacificParts.map((part) => [part.type, part.value])
 );
 
-// Before the 11th, the current race started on the 11th of last month.
-if (now.getDate() < 11) {
-  cycleStart = new Date(
-    now.getFullYear(),
-    now.getMonth() - 1,
-    11
-  );
+let year = Number(parts.year);
+let month = Number(parts.month);
+const day = Number(parts.day);
+
+if (day < 11) {
+  month--;
+
+  if (month === 0) {
+    month = 12;
+    year--;
+  }
 }
 
-const startDate = `${cycleStart.getFullYear()}-${String(
-  cycleStart.getMonth() + 1
-).padStart(2, "0")}-${String(
-  cycleStart.getDate()
-).padStart(2, "0")}`;
+const startDate =
+  `${year}-${String(month).padStart(2, "0")}-11`;
+
 
     const url =
       `https://api.luxdrop.com/external/affiliates` +
