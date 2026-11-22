@@ -338,7 +338,7 @@ if (active === "shuffle") {
                     <th className="p-5">RANK</th>
                     <th className="p-5">PLAYER</th>
                     <th className="p-5">
-                      {active === "shuffle" ? "WEIGHTED WAGERED" : "WAGERED"}
+                      {active === "shuffle" ? "WAGERED" : "WAGERED"}
                     </th>
                     <th className="p-5">PRIZE</th>
                   </tr>

@@ -12,8 +12,27 @@ type Player = {
 
 type ShufflePlayer = {
   username: string;
-  weightedWagerAmount: number;
+  wagerAmount: number;
 };
+
+function maskUsername(username: string): string {
+  if (username.length <= 3) {
+    return username[0] + "*".repeat(username.length - 1);
+  }
+
+  return (
+    username.slice(0, 2) +
+    "*".repeat(username.length - 3) +
+    username.slice(-1)
+  );
+}
+
+function maskPlayers(players: Player[]): Player[] {
+  return players.map((player) => ({
+    ...player,
+    username: maskUsername(player.username),
+  }));
+}
 
 const CACHE_ID = 1;
 
@@ -118,7 +137,9 @@ export async function GET() {
       age >= 0 &&
       age < CACHE_SECONDS * 1000
     ) {
-      return NextResponse.json(cached.players);
+      
+return NextResponse.json(maskPlayers(cached.players));
+
     }
 
     // Atomically claim a refresh.
@@ -137,13 +158,13 @@ export async function GET() {
       RETURNING id
     `;
 
-    if (claimed.length === 0) {
-      // Another request recently attempted a refresh.
-      // Never display previous competition rankings.
-      return NextResponse.json(
-        sameCompetition ? cached.players : []
-      );
-    }
+   
+if (claimed.length === 0) {
+  return NextResponse.json(
+    sameCompetition ? maskPlayers(cached.players) : []
+  );
+}
+
 
     const url = new URL(
       `https://affiliate.shufflexternal.com/wager/${encodeURIComponent(apiKey)}`
@@ -176,16 +197,20 @@ export async function GET() {
     }
 
     const players: Player[] = data
-      .filter(
-        (player) =>
-          typeof player.username === "string" &&
-          typeof player.weightedWagerAmount === "number" &&
-          Number.isFinite(player.weightedWagerAmount)
-      )
-      .map((player) => ({
-        username: player.username,
-        wagered: player.weightedWagerAmount,
-      }))
+      
+.filter(
+  (player) =>
+    typeof player.username === "string" &&
+    typeof player.wagerAmount === "number" &&
+    Number.isFinite(player.wagerAmount)
+)
+
+.map((player) => ({
+  username: maskUsername(player.username),
+  wagered: player.wagerAmount,
+}))
+
+
       .sort((a, b) => b.wagered - a.wagered);
 
     // Save the successful result and its competition.
@@ -218,7 +243,9 @@ export async function GET() {
           fallback[0].competition_start
         ).getTime() === start.getTime()
       ) {
-        return NextResponse.json(fallback[0].players);
+        
+return NextResponse.json(maskPlayers(fallback[0].players));
+
       }
     } catch (fallbackError) {
       console.error(
