@@ -13,7 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ZuletaLB | LuxDrop Wager Race",
+  
+title: "ZuletaLB | Wager Leaderboards",
+
   description: "LuxDrop Wager Race Hosted by ZuletaLB",
 };
 
